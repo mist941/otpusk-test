@@ -8,6 +8,7 @@ import {TicketItem} from "./TicketItem";
 export const TicketList = ({}) => {
   const currentUser = useSelector(selectUser);
   const [tickets, setTickets] = useState([]);
+  const [searchText, setSearch] = useState('');
 
   const sortByDate = tickets => {
     return tickets.sort((a, b) => {
@@ -17,12 +18,12 @@ export const TicketList = ({}) => {
     })
   };
 
-  const search = value => {
+  const customFilter = value => {
     const filteredTickets = tickets.filter(ticket => {
       if (ticket.company.name.indexOf(value) > -1) return true;
       return !!ticket.company.alternativeNames.find(aName => aName.indexOf(value) > -1);
     });
-    setTickets(filteredTickets);
+    return filteredTickets;
   }
 
   useEffect(() => {
@@ -44,8 +45,6 @@ export const TicketList = ({}) => {
 
   }, []);
 
-  console.log(tickets);
-
   return (
     <Container>
       <Row>
@@ -54,7 +53,7 @@ export const TicketList = ({}) => {
             className="search"
             type="text"
             placeholder="Type for Search"
-            onChange={(event => search(event.currentTarget.value))}
+            onChange={(event => setSearch(event.currentTarget.value))}
           />
         </Col>
         <Table striped bordered hover>
@@ -66,7 +65,7 @@ export const TicketList = ({}) => {
           </thead>
           <tbody>
           {
-            tickets.map(ticket => <TicketItem
+            customFilter(searchText).map(ticket => <TicketItem
               key={`key-${ticket.date}`}
               date={ticket.date}
               name={ticket.company.name}/>)
