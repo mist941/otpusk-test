@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Button, Form} from "react-bootstrap";
+import {Button, Col, Form, Row} from "react-bootstrap";
 import {useForm} from "react-hook-form";
 import {authenticateUser} from "../api/sdk";
 import {useDispatch} from "react-redux";
@@ -13,14 +13,17 @@ export const LoginForm = ({}) => {
 
 
   const onSubmit = data => {
-    const {email, password} = data;
+    const {email, password, isRemember} = data;
     authenticateUser(email, password)
       .then(res => {
         if (res.ok) {
-          dispatch(login(email, password));
+          return res.json();
         } else {
           throw new Error();
         }
+      })
+      .then(data => {
+        dispatch(login({...data, isRemember}));
       })
       .catch(err => setServerErr(err.status));
   }
@@ -63,6 +66,19 @@ export const LoginForm = ({}) => {
           )}
         />
         {errors.password && getErrorMessage(errors.password)}
+      </Form.Group>
+      <Form.Group>
+        <Row>
+          <Col md={10}>
+            <Form.Label>Remember me?</Form.Label>
+          </Col>
+          <Col md={2}>
+            <Form.Check
+              type='checkbox'
+              {...register("isRemember")}
+            />
+          </Col>
+        </Row>
       </Form.Group>
       <Button variant="primary" type="submit">Submit</Button>
       {serverErr && <p>{`Server err: ${serverErr}`}</p>}

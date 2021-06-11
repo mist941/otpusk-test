@@ -9,12 +9,15 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     login: (state, action) => {
-      state.currentUser = action.payload
+      if (action.payload.isRemember) {
+        localStorage.setItem('token', action.payload.token)
+      }
+      state.currentUser = action.payload.email;
     }
   }
 });
 
-export const { login } = authSlice.actions;
+export const {login} = authSlice.actions;
 
 export const selectUser = (state) => state.auth.currentUser;
 
