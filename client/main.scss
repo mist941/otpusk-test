@@ -3,7 +3,7 @@ html {
 }
 
 body {
-  background: cornflowerblue;
+  background: aliceblue;
 }
 
 .form-wrapper {
@@ -20,4 +20,22 @@ body {
 
 .err-block {
   color: red;
+}
+
+.header {
+  padding: 20px 10px;
+  background: dodgerblue;
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: space-between;
+
+  .user-info {
+    font-size: 25px;
+    font-weight: bold;
+    color: aliceblue;
+  }
+}
+
+.search {
+  margin-bottom: 10px;
 }

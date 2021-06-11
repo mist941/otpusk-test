@@ -1,10 +1,12 @@
 import React from 'react';
-import {LoginForm} from "../components/LoginForm";
+import {Header} from "../components/Header";
+import {TicketList} from "../components/TicketList";
 
 export const AppPage = ({}) => {
   return (
     <>
-    Test
+      <Header/>
+      <TicketList/>
     </>
   );
 };

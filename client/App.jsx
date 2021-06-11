@@ -17,7 +17,7 @@ export const App = ({}) => {
         if (res) {
           getUser(token).then(res => {
             if (res.email) {
-              dispatch(login({...res}));
+              dispatch(login({...res, token}));
             } else {
               throw new Error();
             }
@@ -29,8 +29,8 @@ export const App = ({}) => {
 
   return (
     <Switch>
-      <Route path="/">
-        {!currentUser ? <Redirect to="/login"/> : <AppPage/>}
+      <Route path="/" exact>
+        {currentUser ? <AppPage/> : <Redirect to="/login"/>}
       </Route>
       <Route path="/login">
         {currentUser ? <Redirect to="/"/> : <LoginPage/>}

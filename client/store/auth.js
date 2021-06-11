@@ -10,14 +10,19 @@ export const authSlice = createSlice({
   reducers: {
     login: (state, action) => {
       if (action.payload.isRemember) {
-        localStorage.setItem('token', action.payload.token)
+        console.log(action.payload);
+        localStorage.setItem('token', action.payload.token);
       }
-      state.currentUser = action.payload.email;
+      state.currentUser = {user: action.payload.email, token: action.payload.token};
+    },
+    logout: (state) => {
+      localStorage.removeItem('token');
+      state.currentUser = null;
     }
   }
 });
 
-export const {login} = authSlice.actions;
+export const {login, logout} = authSlice.actions;
 
 export const selectUser = (state) => state.auth.currentUser;
 
