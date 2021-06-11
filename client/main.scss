@@ -1,0 +1,19 @@
+html {
+  height: 100%;
+}
+
+body {
+  background: cornflowerblue;
+}
+
+.form-wrapper {
+  width: 400px;
+  background: aliceblue;
+  border-radius: 10px;
+  padding: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: darkgray 5px 5px 14px 9px;
+}

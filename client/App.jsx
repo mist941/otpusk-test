@@ -1,9 +1,10 @@
 import React from 'react';
+import {LoginPage} from "./pages/LoginPage";
 
 export const App = ({}) => {
   return (
-    <div>
-      <h1>Hello!</h1>
-    </div>
+    <>
+      <LoginPage/>
+    </>
   );
 };
